@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.app.model.User</class>
     <class>com.app.model.Task</class>
+    <class>com.app.dao.ImplDao</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3308/calendartaskdb?zeroDateTimeBehavior=convertToNull"/>
