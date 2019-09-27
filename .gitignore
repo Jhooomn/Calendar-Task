@@ -87,3 +87,5 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 /CalendarTask/nbproject/private/
+/CalendarTask/build/
+/CalendarTask/dist/
