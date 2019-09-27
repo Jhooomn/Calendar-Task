@@ -6,6 +6,7 @@
 package com.app.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,10 +29,10 @@ public class Task implements Serializable {
     private String title;
 
     @Column(name = "from")
-    private Date from;
+    private String from;
 
     @Column(name = "to")
-    private Date to;
+    private String to;
 
     @Column(name = "allDay")
     private Boolean allDay;
@@ -39,15 +40,23 @@ public class Task implements Serializable {
     public Task() {
     }
 
-    public Task(Integer id, String title, Date from, Date to, Boolean allDay) {
+    public Task(Integer id, String title, String from, String to, Boolean allDay) {
         this.id = id;
         this.title = title;
         this.from = from;
         this.to = to;
         this.allDay = allDay;
     }
- 
-        
+    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -56,19 +65,19 @@ public class Task implements Serializable {
         this.title = title;
     }
 
-    public Date getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom(Date from) {
+    public void setFrom(String from) {
         this.from = from;
     }
 
-    public Date getTo() {
+    public String getTo() {
         return to;
     }
 
-    public void setTo(Date to) {
+    public void setTo(String to) {
         this.to = to;
     }
 
@@ -79,38 +88,7 @@ public class Task implements Serializable {
     public void setAllDay(Boolean allDay) {
         this.allDay = allDay;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Task)) {
-            return false;
-        }
-        Task other = (Task) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.app.model.Task[ id=" + id + " ]";
-    }
+    
+    
 
 }
