@@ -7,18 +7,22 @@ package com.app.model;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Jhon Baron
  */
 @Entity
+@Table(name = "task")
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,17 +41,32 @@ public class Task implements Serializable {
     @Column(name = "allDay")
     private Boolean allDay;
 
+    @JoinTable(name = "user_has_task", joinColumns = {
+        @JoinColumn(name = "user_iduser", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "task_idtask", referencedColumnName = "id", nullable = false)
+    })
+    @ManyToMany
+    private User user;
+
     public Task() {
     }
 
-    public Task(Integer id, String title, String from, String to, Boolean allDay) {
+    public Task(Integer id, String title, String from, String to, Boolean allDay, User user) {
         this.id = id;
         this.title = title;
         this.from = from;
         this.to = to;
         this.allDay = allDay;
+        this.user = user;
     }
-    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
@@ -88,7 +107,5 @@ public class Task implements Serializable {
     public void setAllDay(Boolean allDay) {
         this.allDay = allDay;
     }
-    
-    
 
 }

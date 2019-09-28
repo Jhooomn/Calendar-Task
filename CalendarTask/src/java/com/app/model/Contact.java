@@ -6,12 +6,13 @@
 package com.app.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -20,8 +21,8 @@ import javax.persistence.Table;
  * @author Jhon Baron
  */
 @Entity
-@Table(name = "user")
-public class User implements Serializable {
+@Table(name = "contact")
+public class Contact implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,36 +32,32 @@ public class User implements Serializable {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "phoneNumber")
     private int phoneNumber;
 
-    @ManyToMany(mappedBy = "user")
-    List<Task> task;
-    
-    @ManyToMany(mappedBy = "user")
-    List<Contact> contact;
+    @JoinTable(name = "user_has_contact", joinColumns = {
+        @JoinColumn(name = "user_iduser", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "contact_idcontact", referencedColumnName = "id", nullable = false)
+    })
+    @ManyToMany
+    private User user;
 
-    public User() {
+    public Contact() {
     }
 
-    public User(Integer id, String username, String password, int phoneNumber, List<Task> task, List<Contact> contact) {
+    public Contact(Integer id, String username, int phoneNumber, User user) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.phoneNumber = phoneNumber;
-        this.task = task;
-        this.contact = contact;
+        this.user = user;
     }
 
-    public List<Contact> getContact() {
-        return contact;
+    public User getUser() {
+        return user;
     }
 
-    public void setContact(List<Contact> contact) {
-        this.contact = contact;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getUsername() {
@@ -71,28 +68,12 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public List<Task> getTask() {
-        return task;
-    }
-
-    public void setTask(List<Task> task) {
-        this.task = task;
     }
 
     public Integer getId() {
@@ -113,10 +94,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Contact)) {
             return false;
         }
-        User other = (User) object;
+        Contact other = (Contact) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -125,7 +106,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.app.model.User[ id=" + id + " ]";
+        return "com.app.model.Contact[ id=" + id + " ]";
     }
 
 }
