@@ -14,7 +14,49 @@
             <h1> <strong>   Welcome to Calendar-Task!   </strong> </h1>
         </div>
 
-        
+        <div class="container mt-5" style="text-align: center;">
+            <div class="row">
+
+                <div class="col-md"></div>
+                <div class="col-md">
+                    <div class="container">
+                        <div class="row"><!--IMG-->
+                            <div class="col-md"></div>
+                            <div class="col-md">
+                                <img src="img/calendar_logo.jpg" alt="logo" style="width: 250px; height: 150px; border-radius: 50%"/>
+                            </div>
+                            <div class="col-md"></div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md"></div>
+                            <div class="col-md"><!--Input-->
+                                <h:form>
+                                    <p:panelGrid columns="2">
+                                        <p:outputLabel> <strong> Username: </strong></p:outputLabel>
+                                        <p:inputText type="text" value="#{loginController.user.username}"></p:inputText>
+
+                                        <p:outputLabel> <strong> Password: </strong></p:outputLabel>
+                                        <p:inputText type="password" value="#{loginController.user.password}"></p:inputText>
+                                    </p:panelGrid>
+                                    <div class="form-group">
+                                        <p:commandButton class="btn btn-dark mt-4" value="Log In" action="#{loginController.LogIn()}" style="width: 120px"></p:commandButton>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:commandButton class="btn btn-dark mt-1" value="Sign Up" action="#{loginController.SignUp()}" style="width: 120px"></p:commandButton>
+                                    </div>
+                                </h:form>
+                                <p:growl></p:growl>
+                            </div>
+                            <div class="col-md"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md"></div>
+
+            </div>
+        </div>
+
+
 
     </h:body>
 </html>
