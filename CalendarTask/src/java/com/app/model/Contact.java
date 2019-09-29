@@ -6,15 +6,16 @@
 package com.app.model;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -22,42 +23,51 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "contact")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Contact.findAll", query = "SELECT c FROM Contact c")
+    , @NamedQuery(name = "Contact.findByIdcontact", query = "SELECT c FROM Contact c WHERE c.contactPK.idcontact = :idcontact")
+    , @NamedQuery(name = "Contact.findByUsername", query = "SELECT c FROM Contact c WHERE c.username = :username")
+    , @NamedQuery(name = "Contact.findByPhoneNumber", query = "SELECT c FROM Contact c WHERE c.phoneNumber = :phoneNumber")
+    , @NamedQuery(name = "Contact.findByUserIduser", query = "SELECT c FROM Contact c WHERE c.contactPK.userIduser = :userIduser")})
 public class Contact implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
+    @EmbeddedId
+    protected ContactPK contactPK;
+    @Basic(optional = false)
     @Column(name = "username")
     private String username;
-
+    @Basic(optional = false)
     @Column(name = "phoneNumber")
     private int phoneNumber;
-
-    @JoinTable(name = "user_has_contact", joinColumns = {
-        @JoinColumn(name = "user_iduser", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "contact_idcontact", referencedColumnName = "id", nullable = false)
-    })
-    @ManyToMany
+    @JoinColumn(name = "user_iduser", referencedColumnName = "iduser", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private User user;
 
     public Contact() {
     }
 
-    public Contact(Integer id, String username, int phoneNumber, User user) {
-        this.id = id;
+    public Contact(ContactPK contactPK) {
+        this.contactPK = contactPK;
+    }
+
+    public Contact(ContactPK contactPK, String username, int phoneNumber) {
+        this.contactPK = contactPK;
         this.username = username;
         this.phoneNumber = phoneNumber;
-        this.user = user;
     }
 
-    public User getUser() {
-        return user;
+    public Contact(int idcontact, int userIduser) {
+        this.contactPK = new ContactPK(idcontact, userIduser);
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public ContactPK getContactPK() {
+        return contactPK;
+    }
+
+    public void setContactPK(ContactPK contactPK) {
+        this.contactPK = contactPK;
     }
 
     public String getUsername() {
@@ -76,18 +86,18 @@ public class Contact implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Integer getId() {
-        return id;
+    public User getUser() {
+        return user;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (contactPK != null ? contactPK.hashCode() : 0);
         return hash;
     }
 
@@ -98,7 +108,7 @@ public class Contact implements Serializable {
             return false;
         }
         Contact other = (Contact) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.contactPK == null && other.contactPK != null) || (this.contactPK != null && !this.contactPK.equals(other.contactPK))) {
             return false;
         }
         return true;
@@ -106,7 +116,7 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return "com.app.model.Contact[ id=" + id + " ]";
+        return "com.app.model.Contact[ contactPK=" + contactPK + " ]";
     }
-
+    
 }
