@@ -23,19 +23,32 @@ public class loginController {
     /**
      * Creates a new instance of loginController
      */
-    
     User user = new User();
-    List<User> users = new ArrayList<>();
     UserService service = new UserService();
-    
+
     public loginController() {
-    this.userOnList();
+    }
+
+    public String LogIn() {
+        List<User> users = new ArrayList<>();
+
+        if (users.isEmpty()) {
+            return "signup.xhtml?faces-redirect=true";
+        } else {
+            for (User u : users) {
+                if ((u.getUsername().equalsIgnoreCase(user.getUsername())) && (u.getPassword().equalsIgnoreCase(user.getPassword()))) {
+                    return "home.xhtml?faces-redirect=true";
+                } else {
+                    return "signup.xhtml?faces-redirect=true";
+                }
+            }
+        }
+        return "index.xhtml?faces-redirect=true";
     }
     
-    public void userOnList(){
-        users = service.consultarTodo(User.class);
+    public String SignUp(){
+        return "signup.xhtml?faces-redirect=true";
     }
-    
 
     public User getUser() {
         return user;
@@ -45,14 +58,6 @@ public class loginController {
         this.user = user;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
     public UserService getService() {
         return service;
     }
@@ -60,7 +65,5 @@ public class loginController {
     public void setService(UserService service) {
         this.service = service;
     }
-    
-    
-    
+
 }
