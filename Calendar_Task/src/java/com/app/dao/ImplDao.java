@@ -32,6 +32,7 @@ public class ImplDao<T,ID> implements IDao<T,ID>{
     @Override
     public void crear(T entity) {
         EntityManager em = null;
+        
         try {
             em = getEntityManager();
             em.getTransaction().begin();
