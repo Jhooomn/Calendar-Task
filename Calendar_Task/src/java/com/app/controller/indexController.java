@@ -9,7 +9,6 @@ import com.app.model.Contact;
 import com.app.model.User;
 import com.app.service.ContactService;
 import com.app.service.UserService;
-import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
