@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Calendar Task</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
@@ -78,13 +79,13 @@
                                 <td><strong>Username</strong></td> 
                                 <td><strong>Phone-Number</strong></td> 
                             </tr>
-                            <c:forEach items="#{indexController.user.contactList}" var="c">
+                            <ui:repeat value="#{indexController.user.contactList}" var="c">
                                 <tr>
                                     <td><h:outputText value="#{c.contactPK}"></h:outputText></td>
                                     <td><h:outputText value="#{c.username}"></h:outputText></td>
                                     <td><h:outputText value="#{c.phoneNumber}"></h:outputText></td>
                                 </tr>
-                            </c:forEach>
+                            </ui:repeat>
                         </table>
                     </div>
                 </div>

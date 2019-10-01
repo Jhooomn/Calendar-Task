@@ -42,7 +42,7 @@ public class indexController {
     public void addContact() {
         if ((contact.getUsername().length() != 0) && (contact.getPhoneNumber() > 0)) {
             System.out.println("contact added");
-            user.getContactList().add(contact);
+            user_in.getContactList().add(contact);
             contact = new Contact();
         }
     }
