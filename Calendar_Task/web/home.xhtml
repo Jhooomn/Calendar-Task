@@ -1,12 +1,73 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Calendar_Task Home</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"></link>
     </h:head>
     <h:body>
-        Hello from Facelets
+
+        <div class="mt-4 container animated infinite pulse" style="text-align: center">
+            <h3> Calendar-Task! </h3>
+        </div>
+
+        <div class="container">
+
+
+            <div class="row">
+                <div class="cold-md"></div>
+                <div class="col-md">
+                    <h3>Welcome ... </h3> <h3><strong>#{homeController.user.username}</strong></h3>
+                </div>
+                <div class="cold-md"></div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-"> <!--Add contacts-->
+                    <div class="container-fluid">
+                        <h:form>
+                            <p:panelGrid columns="2">
+                                <p:outputLabel><strong> Username: </strong></p:outputLabel>
+                                <p:inputText type="text" placeholder="..." value=""></p:inputText>
+
+
+                                <p:outputLabel><strong> PhoneNumber: </strong></p:outputLabel>
+                                <p:inputText type="number" placeholder="..." value=""></p:inputText>
+                            </p:panelGrid>
+                            <div class="form-group mt-3">
+                                <h:commandButton class="btn btn-dark"  value="Add Contact"></h:commandButton>
+                            </div>
+                        </h:form>
+                        <p:growl></p:growl>
+                    </div>    
+                </div>
+                <div class="col-md"><!--Contact Table-->
+                    <div class="container-fluid" style="text-align: center;">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><strong>ID</strong></td> 
+                                <td><strong>Username</strong></td> 
+                                <td><strong>Phone-Number</strong></td> 
+                            </tr>
+                            <ui:repeat value="" var="c">
+                                <tr>
+                                    <td><h:outputText value=""></h:outputText></td>
+                                    <td><h:outputText value=""></h:outputText></td>
+                                    <td><h:outputText value=""></h:outputText></td>
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </h:body>
 </html>
 

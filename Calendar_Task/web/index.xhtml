@@ -44,52 +44,7 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="cold-md"></div>
-                <div class="col-md">
-                    <h3>Welcome ... </h3> <h3><strong>#{indexController.user_in.username}</strong></h3>
-                </div>
-                <div class="cold-md"></div>
-            </div>
 
-            <div class="row mt-4">
-                <div class="col-md-"> <!--Add contacts-->
-                    <div class="container-fluid">
-                        <h:form>
-                            <p:panelGrid columns="2">
-                                <p:outputLabel><strong> Username: </strong></p:outputLabel>
-                                <p:inputText type="text" placeholder="..." value="#{indexController.contact.username}"></p:inputText>
-
-
-                                <p:outputLabel><strong> PhoneNumber: </strong></p:outputLabel>
-                                <p:inputText type="number" placeholder="..." value="#{indexController.contact.phoneNumber}"></p:inputText>
-                            </p:panelGrid>
-                            <div class="form-group mt-3">
-                                <h:commandButton class="btn btn-dark" action="#{indexController.addContact()}" value="Add Contact"></h:commandButton>
-                            </div>
-                        </h:form>
-                        <p:growl></p:growl>
-                    </div>    
-                </div>
-                <div class="col-md"><!--Contact Table-->
-                    <div class="container-fluid" style="text-align: center;">
-                        <table class="table table-bordered">
-                            <tr>
-                                <td><strong>ID</strong></td> 
-                                <td><strong>Username</strong></td> 
-                                <td><strong>Phone-Number</strong></td> 
-                            </tr>
-                            <ui:repeat value="#{indexController.user.contactList}" var="c">
-                                <tr>
-                                    <td><h:outputText value="#{c.contactPK}"></h:outputText></td>
-                                    <td><h:outputText value="#{c.username}"></h:outputText></td>
-                                    <td><h:outputText value="#{c.phoneNumber}"></h:outputText></td>
-                                </tr>
-                            </ui:repeat>
-                        </table>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
