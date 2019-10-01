@@ -5,6 +5,11 @@
  */
 package com.app.service;
 
+import com.app.dao.ImplDao;
+import com.app.implDao.IUser;
+import com.app.model.User;
+import java.io.Serializable;
+
 /**
  *
  * @author Jhon Baron
