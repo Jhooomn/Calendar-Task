@@ -5,7 +5,6 @@
  */
 package com.app.controller;
 
-import com.app.model.Contact;
 import com.app.model.Task;
 import com.app.model.User;
 import com.app.service.TaskService;
@@ -19,7 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -35,7 +34,7 @@ import org.primefaces.model.ScheduleModel;
  * @author Jhon Baron
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ScheduleView implements Serializable {
 
     @ManagedProperty(value = "#{indexController}")
@@ -52,9 +51,10 @@ public class ScheduleView implements Serializable {
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
-//        for (Task task : task_service.consultarTodo(Task.class)) {
-//            eventModel.addEvent(new DefaultScheduleEvent(task.getTitle(), task.getFrom(), task.getTo()));
-//        }
+        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
+        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
+        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
+        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
 
         lazyEventModel = new LazyScheduleModel() {
 
@@ -178,28 +178,21 @@ public class ScheduleView implements Serializable {
     }
 
     public void addEvent() {
-        System.out.println("entra addEvent");
         if (event.getId() == null) {
-//            int id = 0;
-//            short allDay = 0;
-//            for (User u : user_service.consultarTodo(User.class)) {
-//                if ((u.getUsername().equalsIgnoreCase(login.getUser().getUsername()))) {
-//                    id = u.getIduser();
-//                }
-//            }
-//            Task task = new Task();
-//            task.setTitle(event.getTitle());
-//            task.setFrom(event.getStartDate());
-//            task.setTo(event.getEndDate());
-//            if (event.isAllDay()) {
-//                allDay = 1;
-//            } else {
-//                allDay = 0;
-//            }
-//            task.setAllDay(allDay);
-//            task.setIduser(id);
-//            task_service.crear(task);
+            System.out.println("entra addevent");
+            Task task = new Task();
+            task.setIdtask(0);
+            task.setTitle(event.getTitle());
+            task.setDayFrom(event.getStartDate());
+            task.setDayTo(event.getEndDate());
+            for (User u : user_service.consultarTodo(User.class)) {
+                if ((u.getUsername().equalsIgnoreCase(login.getUser().getUsername()))) {
+                    task.setIduser(u.getIduser());
+                }
+            }
+            task_service.crear(task);
             eventModel.addEvent(event);
+            System.out.println("sale addevent");
         } else {
             eventModel.updateEvent(event);
         }
@@ -214,6 +207,7 @@ public class ScheduleView implements Serializable {
     public void onDateSelect(SelectEvent selectEvent) { // Select a Specific Day
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
 
+//        task_service.crear(new Task(event.getTitle(), event.getStartDate(), event.getEndDate(), event.isAllDay(), ));
     }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
