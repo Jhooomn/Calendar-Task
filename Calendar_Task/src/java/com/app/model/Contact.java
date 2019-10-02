@@ -8,10 +8,10 @@ package com.app.model;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -26,48 +26,48 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Contact.findAll", query = "SELECT c FROM Contact c")
-    , @NamedQuery(name = "Contact.findByIdcontact", query = "SELECT c FROM Contact c WHERE c.contactPK.idcontact = :idcontact")
+    , @NamedQuery(name = "Contact.findByIdcontact", query = "SELECT c FROM Contact c WHERE c.idcontact = :idcontact")
     , @NamedQuery(name = "Contact.findByUsername", query = "SELECT c FROM Contact c WHERE c.username = :username")
     , @NamedQuery(name = "Contact.findByPhoneNumber", query = "SELECT c FROM Contact c WHERE c.phoneNumber = :phoneNumber")
-    , @NamedQuery(name = "Contact.findByUserIduser", query = "SELECT c FROM Contact c WHERE c.contactPK.userIduser = :userIduser")})
+    , @NamedQuery(name = "Contact.findByIduser", query = "SELECT c FROM Contact c WHERE c.iduser = :iduser")})
 public class Contact implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected ContactPK contactPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idcontact")
+    private Integer idcontact;
     @Basic(optional = false)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
     @Column(name = "phoneNumber")
     private int phoneNumber;
-    @JoinColumn(name = "user_iduser", referencedColumnName = "iduser", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private User user;
+    @Basic(optional = false)
+    @Column(name = "iduser")
+    private int iduser;
 
     public Contact() {
     }
 
-    public Contact(ContactPK contactPK) {
-        this.contactPK = contactPK;
+    public Contact(Integer idcontact) {
+        this.idcontact = idcontact;
     }
 
-    public Contact(ContactPK contactPK, String username, int phoneNumber) {
-        this.contactPK = contactPK;
+    public Contact(Integer idcontact, String username, int phoneNumber, int iduser) {
+        this.idcontact = idcontact;
         this.username = username;
         this.phoneNumber = phoneNumber;
+        this.iduser = iduser;
     }
 
-    public Contact(int idcontact, int userIduser) {
-        this.contactPK = new ContactPK(idcontact, userIduser);
+    public Integer getIdcontact() {
+        return idcontact;
     }
 
-    public ContactPK getContactPK() {
-        return contactPK;
-    }
-
-    public void setContactPK(ContactPK contactPK) {
-        this.contactPK = contactPK;
+    public void setIdcontact(Integer idcontact) {
+        this.idcontact = idcontact;
     }
 
     public String getUsername() {
@@ -86,18 +86,18 @@ public class Contact implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public User getUser() {
-        return user;
+    public int getIduser() {
+        return iduser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIduser(int iduser) {
+        this.iduser = iduser;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (contactPK != null ? contactPK.hashCode() : 0);
+        hash += (idcontact != null ? idcontact.hashCode() : 0);
         return hash;
     }
 
@@ -108,7 +108,7 @@ public class Contact implements Serializable {
             return false;
         }
         Contact other = (Contact) object;
-        if ((this.contactPK == null && other.contactPK != null) || (this.contactPK != null && !this.contactPK.equals(other.contactPK))) {
+        if ((this.idcontact == null && other.idcontact != null) || (this.idcontact != null && !this.idcontact.equals(other.idcontact))) {
             return false;
         }
         return true;
@@ -116,7 +116,7 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return "com.app.model.Contact[ contactPK=" + contactPK + " ]";
+        return "com.app.model.Contact[ idcontact=" + idcontact + " ]";
     }
     
 }
