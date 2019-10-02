@@ -54,11 +54,11 @@
                                 <td><strong>Username</strong></td> 
                                 <td><strong>Phone-Number</strong></td> 
                             </tr>
-                            <ui:repeat value="" var="c">
+                            <ui:repeat value="#{homeController.onList()}" var="c">
                                 <tr>
-                                    <td><h:outputText value=""></h:outputText></td>
-                                    <td><h:outputText value=""></h:outputText></td>
-                                    <td><h:outputText value=""></h:outputText></td>
+                                    <td><h:outputText value="#{c.idcontact}"></h:outputText></td>
+                                    <td><h:outputText value="#{c.username}"></h:outputText></td>
+                                    <td><h:outputText value="#{c.phoneNumber}"></h:outputText></td>
                                 </tr>
                             </ui:repeat>
                         </table>

@@ -12,7 +12,6 @@ import com.app.service.UserService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -30,7 +29,6 @@ public class homeController implements Serializable {
      */
     @ManagedProperty(value = "#{indexController}")
     private indexController login;
-
     private User user = new User();
     private Contact contact = new Contact();
 
@@ -53,16 +51,17 @@ public class homeController implements Serializable {
         }
     }
 
-//    public int myId(User u) {
-//        for (User user1 : user_service.consultarTodo(User.class)) {
-//            if ((user1.getUsername().equalsIgnoreCase(u.getUsername()))
-//                    && (user1.getPhoneNumber() == u.getPhoneNumber())
-//                    && (user1.getPassword().equalsIgnoreCase(u.getPassword()))) {
-//                return user1.getIduser();
-//            }
-//        }
-//        return 0;
-//    }
+    public List<Contact> onList() {
+        int id = 0;
+        List<Contact> list = new ArrayList<>();
+        for (Contact c : contact_service.consultarTodo(Contact.class)) {
+            if (c.getIduser() == login.getUser().getIduser()) {
+                list.add(c);
+            }
+        }
+        return list;
+    }
+
     public Contact getContact() {
         return contact;
     }
