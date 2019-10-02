@@ -33,14 +33,14 @@
                         <h:form>
                             <p:panelGrid columns="2">
                                 <p:outputLabel><strong> Username: </strong></p:outputLabel>
-                                <p:inputText type="text" placeholder="..." value=""></p:inputText>
+                                <p:inputText type="text" placeholder="..." value="#{homeController.contact.username}"></p:inputText>
 
 
                                 <p:outputLabel><strong> PhoneNumber: </strong></p:outputLabel>
-                                <p:inputText type="number" placeholder="..." value=""></p:inputText>
+                                <p:inputText type="number" placeholder="..." value="#{homeController.contact.phoneNumber}"></p:inputText>
                             </p:panelGrid>
                             <div class="form-group mt-3">
-                                <h:commandButton class="btn btn-dark"  value="Add Contact"></h:commandButton>
+                                <h:commandButton class="btn btn-dark" action="#{homeController.addContact()}" value="Add Contact"></h:commandButton>
                             </div>
                         </h:form>
                         <p:growl></p:growl>
