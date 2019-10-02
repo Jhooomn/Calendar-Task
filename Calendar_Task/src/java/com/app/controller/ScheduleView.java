@@ -203,10 +203,14 @@ public class ScheduleView implements Serializable {
                     task.setIduser(t.getIduser());
                 }
             }
-            task.setTitle(event.getTitle());
-            task.setDayFrom(event.getStartDate());
-            task.setDayTo(event.getEndDate());
 
+            Date it_1 = (Date) event.getStartDate().clone();
+            Date it_2 = (Date) event.getEndDate().clone();
+            System.out.println("1 - " + it_1);
+            System.out.println("2 - " + it_2);
+            task.setTitle(event.getTitle());
+            task.setDayFrom(it_1);
+            task.setDayTo(it_2);
             task_service.modificar(task);
             eventModel.updateEvent(event);
             System.out.println("sale updateEvent");
