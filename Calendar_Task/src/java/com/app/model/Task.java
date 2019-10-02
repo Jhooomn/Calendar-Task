@@ -31,9 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Task.findAll", query = "SELECT t FROM Task t")
     , @NamedQuery(name = "Task.findByIdtask", query = "SELECT t FROM Task t WHERE t.idtask = :idtask")
     , @NamedQuery(name = "Task.findByTitle", query = "SELECT t FROM Task t WHERE t.title = :title")
-    , @NamedQuery(name = "Task.findByFrom", query = "SELECT t FROM Task t WHERE t.from = :from")
-    , @NamedQuery(name = "Task.findByTo", query = "SELECT t FROM Task t WHERE t.to = :to")
-    , @NamedQuery(name = "Task.findByAllDay", query = "SELECT t FROM Task t WHERE t.allDay = :allDay")
+    , @NamedQuery(name = "Task.findByDayFrom", query = "SELECT t FROM Task t WHERE t.dayFrom = :dayFrom")
+    , @NamedQuery(name = "Task.findByDayTo", query = "SELECT t FROM Task t WHERE t.dayTo = :dayTo")
     , @NamedQuery(name = "Task.findByIduser", query = "SELECT t FROM Task t WHERE t.iduser = :iduser")})
 public class Task implements Serializable {
 
@@ -47,16 +46,13 @@ public class Task implements Serializable {
     @Column(name = "title")
     private String title;
     @Basic(optional = false)
-    @Column(name = "from")
+    @Column(name = "dayFrom")
     @Temporal(TemporalType.DATE)
-    private Date from;
+    private Date dayFrom;
     @Basic(optional = false)
-    @Column(name = "to")
+    @Column(name = "dayTo")
     @Temporal(TemporalType.DATE)
-    private Date to;
-    @Basic(optional = false)
-    @Column(name = "allDay")
-    private short allDay;
+    private Date dayTo;
     @Basic(optional = false)
     @Column(name = "iduser")
     private int iduser;
@@ -68,12 +64,11 @@ public class Task implements Serializable {
         this.idtask = idtask;
     }
 
-    public Task(Integer idtask, String title, Date from, Date to, short allDay, int iduser) {
+    public Task(Integer idtask, String title, Date dayFrom, Date dayTo, int iduser) {
         this.idtask = idtask;
         this.title = title;
-        this.from = from;
-        this.to = to;
-        this.allDay = allDay;
+        this.dayFrom = dayFrom;
+        this.dayTo = dayTo;
         this.iduser = iduser;
     }
 
@@ -93,28 +88,20 @@ public class Task implements Serializable {
         this.title = title;
     }
 
-    public Date getFrom() {
-        return from;
+    public Date getDayFrom() {
+        return dayFrom;
     }
 
-    public void setFrom(Date from) {
-        this.from = from;
+    public void setDayFrom(Date dayFrom) {
+        this.dayFrom = dayFrom;
     }
 
-    public Date getTo() {
-        return to;
+    public Date getDayTo() {
+        return dayTo;
     }
 
-    public void setTo(Date to) {
-        this.to = to;
-    }
-
-    public short getAllDay() {
-        return allDay;
-    }
-
-    public void setAllDay(short allDay) {
-        this.allDay = allDay;
+    public void setDayTo(Date dayTo) {
+        this.dayTo = dayTo;
     }
 
     public int getIduser() {
