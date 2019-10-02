@@ -9,10 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,17 +29,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Task.findAll", query = "SELECT t FROM Task t")
-    , @NamedQuery(name = "Task.findByIdtask", query = "SELECT t FROM Task t WHERE t.taskPK.idtask = :idtask")
+    , @NamedQuery(name = "Task.findByIdtask", query = "SELECT t FROM Task t WHERE t.idtask = :idtask")
     , @NamedQuery(name = "Task.findByTitle", query = "SELECT t FROM Task t WHERE t.title = :title")
     , @NamedQuery(name = "Task.findByFrom", query = "SELECT t FROM Task t WHERE t.from = :from")
     , @NamedQuery(name = "Task.findByTo", query = "SELECT t FROM Task t WHERE t.to = :to")
     , @NamedQuery(name = "Task.findByAllDay", query = "SELECT t FROM Task t WHERE t.allDay = :allDay")
-    , @NamedQuery(name = "Task.findByUserIduser", query = "SELECT t FROM Task t WHERE t.taskPK.userIduser = :userIduser")})
+    , @NamedQuery(name = "Task.findByIduser", query = "SELECT t FROM Task t WHERE t.iduser = :iduser")})
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected TaskPK taskPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idtask")
+    private Integer idtask;
     @Basic(optional = false)
     @Column(name = "title")
     private String title;
@@ -54,35 +57,32 @@ public class Task implements Serializable {
     @Basic(optional = false)
     @Column(name = "allDay")
     private short allDay;
-    @JoinColumn(name = "user_iduser", referencedColumnName = "iduser", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private User user;
+    @Basic(optional = false)
+    @Column(name = "iduser")
+    private int iduser;
 
     public Task() {
     }
 
-    public Task(TaskPK taskPK) {
-        this.taskPK = taskPK;
+    public Task(Integer idtask) {
+        this.idtask = idtask;
     }
 
-    public Task(TaskPK taskPK, String title, Date from, Date to, short allDay) {
-        this.taskPK = taskPK;
+    public Task(Integer idtask, String title, Date from, Date to, short allDay, int iduser) {
+        this.idtask = idtask;
         this.title = title;
         this.from = from;
         this.to = to;
         this.allDay = allDay;
+        this.iduser = iduser;
     }
 
-    public Task(int idtask, int userIduser) {
-        this.taskPK = new TaskPK(idtask, userIduser);
+    public Integer getIdtask() {
+        return idtask;
     }
 
-    public TaskPK getTaskPK() {
-        return taskPK;
-    }
-
-    public void setTaskPK(TaskPK taskPK) {
-        this.taskPK = taskPK;
+    public void setIdtask(Integer idtask) {
+        this.idtask = idtask;
     }
 
     public String getTitle() {
@@ -117,18 +117,18 @@ public class Task implements Serializable {
         this.allDay = allDay;
     }
 
-    public User getUser() {
-        return user;
+    public int getIduser() {
+        return iduser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIduser(int iduser) {
+        this.iduser = iduser;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (taskPK != null ? taskPK.hashCode() : 0);
+        hash += (idtask != null ? idtask.hashCode() : 0);
         return hash;
     }
 
@@ -139,7 +139,7 @@ public class Task implements Serializable {
             return false;
         }
         Task other = (Task) object;
-        if ((this.taskPK == null && other.taskPK != null) || (this.taskPK != null && !this.taskPK.equals(other.taskPK))) {
+        if ((this.idtask == null && other.idtask != null) || (this.idtask != null && !this.idtask.equals(other.idtask))) {
             return false;
         }
         return true;
@@ -147,7 +147,7 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "com.app.model.Task[ taskPK=" + taskPK + " ]";
+        return "com.app.model.Task[ idtask=" + idtask + " ]";
     }
     
 }

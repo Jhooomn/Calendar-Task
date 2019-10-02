@@ -6,9 +6,7 @@
 package com.app.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,10 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -51,10 +47,6 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "phoneNumber")
     private long phoneNumber;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Task> taskList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Contact> contactList;
 
     public User() {
     }
@@ -100,24 +92,6 @@ public class User implements Serializable {
 
     public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    @XmlTransient
-    public List<Task> getTaskList() {
-        return taskList;
-    }
-
-    public void setTaskList(List<Task> taskList) {
-        this.taskList = taskList;
-    }
-
-    @XmlTransient
-    public List<Contact> getContactList() {
-        return contactList;
-    }
-
-    public void setContactList(List<Contact> contactList) {
-        this.contactList = contactList;
     }
 
     @Override
