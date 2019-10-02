@@ -178,9 +178,9 @@ public class ScheduleView implements Serializable {
     }
 
     public void addEvent() {
+        Task task = new Task();
         if (event.getId() == null) {
             System.out.println("entra addevent");
-            Task task = new Task();
             task.setIdtask(0);
             task.setTitle(event.getTitle());
             task.setDayFrom(event.getStartDate());
@@ -194,9 +194,27 @@ public class ScheduleView implements Serializable {
             eventModel.addEvent(event);
             System.out.println("sale addevent");
         } else {
-            eventModel.updateEvent(event);
-        }
+            System.out.println("entra updateEvent");
 
+            for (Task t : task_service.consultarTodo(Task.class)) {
+                if (t.getTitle().equalsIgnoreCase(event.getTitle())) {
+                    System.out.println("encontró");
+                    task.setIdtask(t.getIdtask());
+                    task.setIduser(t.getIduser());
+                }
+            }
+
+            Date it_1 = (Date) event.getStartDate().clone();
+            Date it_2 = (Date) event.getEndDate().clone();
+            System.out.println("1 - " + it_1);
+            System.out.println("2 - " + it_2);
+            task.setTitle(event.getTitle());
+            task.setDayFrom(it_1);
+            task.setDayTo(it_2);
+            task_service.modificar(task);
+            eventModel.updateEvent(event);
+            System.out.println("sale updateEvent");
+        }
         event = new DefaultScheduleEvent();
     }
 
