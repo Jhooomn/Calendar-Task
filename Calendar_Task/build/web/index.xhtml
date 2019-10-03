@@ -9,18 +9,29 @@
         <title>Calendar Task</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"></link>
+        <link href="css/animate.css" rel="stylesheet" type="text/css"/>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
     </h:head>
     <h:body>
 
         <div class="mt-4 container animated infinite pulse" style="text-align: center">
             <h3> Calendar-Task! </h3>
         </div>
+
+        <div class="container animated bounceInDown">
+            <div class="col-md"></div>
+            <div class="col-md" style="text-align: center">
+                <img src="img/calendar-icon.png" alt="" style="width: 150px; height: 150px"/>
+            </div>
+            <div class="col-md"></div>
+        </div>
+
         <div class="container">
-            <div class="row mt-5">
-                <div class="col-md" style="text-align: center">
+            <div class="row mt-3">
+                <div class="col-md animated bounceInUp" style="text-align: center">
                     <br></br>
                     <br></br>
-                    <span class="animated bounceInDown"> Create an user before to start adding some task! </span>
+                    <span> Create an user before to start adding some task! </span>
                 </div>
 
                 <div class="col-md">
@@ -34,13 +45,15 @@
                             <p:inputText type="password" placeholder="..." value="#{indexController.user.password}"></p:inputText>
                         </p:panelGrid>
                         <div class="from-group" style="text-align: center">
-                            <h:commandButton class="btn btn-dark mt-5" action="#{indexController.addUser()}" value="Add"></h:commandButton>
+                            <h:commandButton class="btn btn-dark mt-5" style="width: 200px" action="#{indexController.addUser()}" value="Add"></h:commandButton>
                         </div>
                     </h:form>
                     <p:growl></p:growl>
                 </div>
-                <div class="col-md">
-
+                <div class="col-md animated  fadeIn">
+                    <br></br>
+                    <br></br>
+                    <span> Yup, you have to... </span>
                 </div>
             </div>
 
